@@ -1,3 +1,7 @@
+![Capture](https://github.com/user-attachments/assets/6e74bce0-c911-4014-b774-14d3cfcc1e4e)
+
+
+The Number Sorter application is a modern, responsive web tool designed to simplify number sorting for users. Built with React and styled with clean, minimalistic design principles, it allows users to input numbers through intuitive dropdown menus, sort them in ascending order, and display the output dynamically. The application ensures accessibility and seamless user experience through features like keyboard-friendly dropdowns, smooth transitions, and visually consistent layouts. This project showcases front-end development expertise, highlighting skills in React state management, responsive design, and aesthetic styling using CSS. Perfect for demonstrating attention to detail and user-centric design principles.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
