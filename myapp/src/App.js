@@ -1,62 +1,65 @@
 import React, { useState } from "react";
 import "./App.css";
 
-function App() {
-  const [decimal, setDecimal] = useState("");
-  const [binary, setBinary] = useState("");
-  const [error, setError] = useState("");
+const App = () => {
+  const [values, setValues] = useState([8, 2, 4, 1, 3]);
+  const [sortedValues, setSortedValues] = useState([0, 0, 0, 0, 0]);
 
-  const handleConvert = () => {
-    if (!decimal || isNaN(decimal) || parseInt(decimal) < 0) {
-      setError("Please enter a valid positive integer.");
-      setBinary("");
-      return;
-    }
-    setError("");
-    setBinary(parseInt(decimal).toString(2));
+  const handleChange = (index, value) => {
+    const newValues = [...values];
+    newValues[index] = parseInt(value, 10);
+    setValues(newValues);
   };
 
-  const handleClear = () => {
-    setDecimal("");
-    setBinary("");
-    setError("");
+  const sortValues = (event) => {
+    event.preventDefault();
+    const sorted = [...values].sort((a, b) => a - b);
+    setSortedValues(sorted);
   };
 
   return (
     <main>
-      <h1>Decimal to Binary Converter</h1>
-      <div className="converter-container">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleConvert();
-          }}
-        >
-          <fieldset>
-            <input
-              type="text"
-              placeholder="Enter Decimal Number"
-              value={decimal}
-              onChange={(e) => setDecimal(e.target.value)}
-            />
-            <button type="submit">Convert</button>
-          </fieldset>
-        </form>
-        {error && <div className="alert">{error}</div>}
-        {binary && (
-          <div className="output-container">
-            <h2>Binary Output</h2>
-            <p className="output-value">{binary}</p>
-          </div>
-        )}
-        {binary && (
-          <button className="clear-btn" onClick={handleClear}>
-            Clear
-          </button>
-        )}
+      <h1>Number Sorter</h1>
+      <form onSubmit={sortValues} className="form">
+        <h2>Input:</h2>
+        <fieldset>
+          <span className="bracket">[</span>
+          {values.map((value, index) => (
+            <div key={index}>
+              <select
+                value={value}
+                className="values-dropdown"
+                onChange={(e) => handleChange(index, e.target.value)}
+                aria-label={`number ${index + 1}`}
+              >
+                {Array.from({ length: 10 }, (_, i) => (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                ))}
+              </select>
+              {index < values.length - 1 && <span className="comma">,</span>}
+            </div>
+          ))}
+          <span className="bracket">]</span>
+        </fieldset>
+        <button type="submit">Sort</button>
+      </form>
+      <div className="output-container">
+        <h2>Output:</h2>
+        <div className="output-array">
+          <span className="bracket">[</span>
+          {sortedValues.map((value, index) => (
+            <div key={index}>
+              <span className="output-value">{value}</span>
+              {index < sortedValues.length - 1 && <span className="comma">,</span>}
+            </div>
+          ))}
+          <span className="bracket">]</span>
+        </div>
       </div>
     </main>
   );
-}
+};
 
 export default App;
